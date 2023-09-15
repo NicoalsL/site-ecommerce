@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Entity\Trait\CreatedAtTrait;
 use App\Repository\CouponRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -11,6 +12,9 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\Entity(repositoryClass: CouponRepository::class)]
 class Coupon
 {
+
+    use CreatedAtTrait;
+
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
@@ -48,6 +52,8 @@ class Coupon
     public function __construct()
     {
         $this->orders = new ArrayCollection();
+        $this->createdAt = new \DateTimeImmutable();
+
     }
 
     public function getId(): ?int
